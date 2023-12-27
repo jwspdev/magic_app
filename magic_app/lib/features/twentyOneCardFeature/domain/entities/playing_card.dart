@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:floor/floor.dart';
+import 'package:magic_app/utils/constants/strings.dart';
 
 enum CardSuit{
   cloves,
@@ -29,13 +30,18 @@ enum CardColor{
   black,
 }
 
-@Entity(tableName: "cardDeckTable")
+@Entity(tableName: StringConstants.DECK_OF_CARDS)
 class PlayingCard extends Equatable{
   @PrimaryKey(autoGenerate: true)
   final int? id;
 
-  final CardSuit cardSuit;  
-  final CardNumber cardNumber;
+  // todo uncomment later, add type converter
+  // final CardSuit cardSuit;  
+  // final CardNumber cardNumber;
+
+  //todo remove cardSuit and cardNumber
+  final String cardSuit;
+  final String cardNumber;
   final bool isOpen;
   final bool isFaceUp;
 
@@ -48,7 +54,7 @@ class PlayingCard extends Equatable{
   });
 
   CardColor get cardColor {
-    if(cardSuit == CardSuit.heart|| cardSuit == CardSuit.diamond){
+    if(cardSuit == CardSuit.heart.name|| cardSuit == CardSuit.diamond.name){
       return CardColor.red;
     }else{
       return CardColor.black;
