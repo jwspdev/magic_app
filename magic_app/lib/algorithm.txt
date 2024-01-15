@@ -1,0 +1,124 @@
+import 'dart:math';
+import 'dart:io';
+
+void main(List<String> arguments) {
+  List<Card> cards = getAllCards();
+  List<Card> randomizedCards = randomizeCards(21, cards);
+  int round = 0;
+  var selectedCard = Card(0, '');
+
+  while (round < 3) {
+    var threePiles = createThreePiles(randomizedCards);
+    threePiles.forEach(
+      (key, value) {
+        print('PILE: ${key}');
+        for (var card in value) {
+          print('${card.number} of ${card.type}');
+        }
+      },
+    );
+    print('enter value: ');
+
+    int selectedPile = int.parse(stdin.readLineSync()!);
+    var arrangedCards = placeSelectedPileInTheMiddle(threePiles, selectedPile);
+    randomizedCards = generateListFromMap(arrangedCards);
+    if (round == 2) {
+      selectedCard = randomizedCards[10];
+    }
+    round++;
+  }
+  print('${selectedCard.number}: ${selectedCard.type}');
+}
+
+List<Card> generateListFromMap(Map<int, List<Card>> mappedCard) {
+  List<Card> listedCards = [];
+  mappedCard.forEach((key, value) {
+    for (var val in value) {
+      listedCards.add(val);
+    }
+  });
+
+  return listedCards;
+}
+
+Map<int, List<Card>> placeSelectedPileInTheMiddle(
+    Map<int, List<Card>> mappedCard, int pileNumber) {
+  Map<int, List<Card>> newCards = {};
+  var removed = mappedCard.remove(pileNumber);
+  int middleIndex = 2;
+  int count = 1;
+  mappedCard.forEach((key, value) {
+    if (count == middleIndex) {
+      newCards.addAll({count: removed!});
+      count++;
+    }
+    newCards.addAll({count: value});
+    count++;
+  });
+
+  return newCards;
+}
+
+Map<int, List<Card>> createThreePiles(List<Card> cards) {
+  Map<int, List<Card>> mappedCard = {};
+  int pileCount = 1;
+  int indexCount = 1;
+
+  for (var card in cards) {
+    if (!mappedCard.containsKey(pileCount)) {
+      mappedCard.addAll({pileCount: []});
+    }
+    if (indexCount > 3) {
+      indexCount = 1;
+      pileCount < 3 ? pileCount++ : pileCount = 1;
+    }
+    mappedCard[indexCount]?.add(card);
+    indexCount++;
+    pileCount < 3 ? pileCount++ : pileCount = 1;
+  }
+  print('POTA:');
+  return mappedCard;
+}
+
+List<Card> getAllCards() {
+  List<Card> cards = [];
+  List<String> types = ['spade', 'heart', 'diamond', 'clover'];
+  int typeCount = 0;
+  for (int i = 1; i <= 14; i++) {
+    if (i == 14 && typeCount < types.length) {
+      i = 1;
+      typeCount++;
+    }
+    if (typeCount >= 4) {
+      break;
+    }
+    Card tempCard = Card(i, types[typeCount]);
+    cards.add(tempCard);
+  }
+
+  return cards;
+}
+
+List<Card> randomizeCards(int count, List<Card> cards) {
+  List<Card> randomizedCards = [];
+  var rng = Random();
+
+  int i = 1;
+  while (i <= count) {
+    var randomNumber = rng.nextInt(cards.length);
+    var tempCard = cards[randomNumber];
+    if (!randomizedCards.contains(tempCard)) {
+      randomizedCards.add(tempCard);
+    } else {
+      count++;
+    }
+    i++;
+  }
+  return randomizedCards;
+}
+
+class Card {
+  int number;
+  String type;
+  Card(this.number, this.type);
+}
