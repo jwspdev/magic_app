@@ -56,14 +56,6 @@ Map<int, List<Card>> placeSelectedPileInTheMiddle(
     count++;
   });
 
-  print('SELECT PILE:');
-  newCards.forEach((key, value) {
-    print('$key');
-    for (var val in value) {
-      print('${val.number}: ${val.type}');
-    }
-  });
-
   return newCards;
 }
 
@@ -85,12 +77,6 @@ Map<int, List<Card>> createThreePiles(List<Card> cards) {
     pileCount < 3 ? pileCount++ : pileCount = 1;
   }
   print('POTA:');
-  // mappedCard.forEach((key,value){
-  //   print('$key');
-  //    for(var val in value){
-  //     print('${val.number}: ${val.type}');
-  //    }
-  // });
   return mappedCard;
 }
 
