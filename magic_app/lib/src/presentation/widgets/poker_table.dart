@@ -1,5 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:flutter/cupertino.dart';
+// import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -9,10 +9,10 @@ import 'package:magic_app/src/presentation/widgets/custom_button.dart';
 import 'package:magic_app/src/presentation/widgets/playing_card_ui.dart';
 
 class PokerTable extends StatelessWidget {
-  Map<int, List<PlayingCard>> mappedCard;
-  int round;
+  final Map<int, List<PlayingCard>> mappedCard;
+  final int round;
 
-  PokerTable({
+  const PokerTable({
     Key? key,
     required this.mappedCard,
     required this.round,
