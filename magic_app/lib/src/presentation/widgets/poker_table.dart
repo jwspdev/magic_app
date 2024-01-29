@@ -24,36 +24,30 @@ class PokerTable extends StatelessWidget {
     var magicAlgoBloc = context.read<MagicAlgorithmBloc>();
     return SafeArea(
       child: Container(
-        decoration: BoxDecoration(color: Colors.green.shade800),
         padding: const EdgeInsets.all(8),
         child: Column(
           children: [
             Padding(
               padding: const EdgeInsets.only(top: 12),
               child: CustomButton(
-                  text: 'Shuffle',
+                  text: round > 0 ? 'Restart' : 'Shuffle',
                   onPressed: () {
                     magicAlgoBloc.add(ShuffleCardsEvent());
                   }),
             ),
-            Expanded(
+            Container(
+              height: MediaQuery.of(context).size.height - 200,
               child: ListView.builder(
                 itemCount: mappedCard.length,
                 padding: EdgeInsets.all(8),
                 itemBuilder: (BuildContext context, int index) {
                   int key = mappedCard.keys.elementAt(index);
-                  return SingleChildScrollView(
-                    scrollDirection: Axis.vertical,
-                    child: GestureDetector(
-                      onTap: () {},
-                      child: Container(
-                          margin: EdgeInsets.all(8),
-                          child: CardContainer(
-                            cardList: mappedCard[key]!,
-                            pileIndex: key,
-                          )),
-                    ),
-                  );
+                  return Container(
+                      margin: EdgeInsets.all(8),
+                      child: CardContainer(
+                        cardList: mappedCard[key]!,
+                        pileIndex: key,
+                      ));
                 },
               ),
             ),

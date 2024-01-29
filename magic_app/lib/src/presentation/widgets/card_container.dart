@@ -24,7 +24,7 @@ class CardContainer extends StatelessWidget {
         magicAlgoBloc.add(SelectPileOfCardsEvent(pileIndex));
       },
       child: Container(
-        height: 216,
+        height: 200,
         width: 200,
         decoration: BoxDecoration(
             border: Border.all(
@@ -46,8 +46,8 @@ class CardContainer extends StatelessWidget {
         top: (i * 10),
         left: (i * 40),
         child: Container(
-          width: 80,
-          padding: const EdgeInsets.all(8),
+          width: 70,
+          padding: const EdgeInsets.all(4),
           child: PlayingCardUi(
             suit: cardList[i].type,
             value: cardList[i].value,

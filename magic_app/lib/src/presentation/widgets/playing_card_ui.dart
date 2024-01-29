@@ -13,24 +13,13 @@ class PlayingCardUi extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 100,
-      width: 64,
+      height: 88,
+      // width: 64,
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12),
           color: Colors.grey.shade100,
           border: Border.all(color: Colors.grey.shade800),
-          // boxShadow: [
-          //   BoxShadow(
-          //     color: Colors.grey,
-          //     offset: const Offset(
-          //       1.0,
-          //       0.0,
-          //     ),
-          //     blurRadius: 1.0,
-          //     spreadRadius: 1.0,
-          //   )
-          // ]
         ),
         padding: EdgeInsets.all(8),
         child: Stack(
@@ -43,7 +32,10 @@ class PlayingCardUi extends StatelessWidget {
               child: SizedBox(
                 width: 16,
                 height: 16,
-                child: Icon(_buildIcon()),
+                child: Icon(
+                  _buildIcon(),
+                  color: _getIconColor(),
+                ),
               ),
             ),
           ],
@@ -70,6 +62,17 @@ class PlayingCardUi extends StatelessWidget {
         return CupertinoIcons.suit_spade_fill;
       case 'heart':
         return CupertinoIcons.suit_heart_fill;
+    }
+  }
+
+  _getIconColor() {
+    switch (suit) {
+      case 'diamond':
+      case 'heart':
+        return Colors.red.shade600;
+      case 'spade':
+      case 'clover':
+        return Colors.black;
     }
   }
 }

@@ -14,6 +14,7 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
+        backgroundColor: Colors.green.shade800,
         body: BlocProvider(
           create: (context) => MagicAlgorithmBloc(),
           child: const Center(child: PokerPage()),
