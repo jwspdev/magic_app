@@ -13,41 +13,66 @@ class PlayingCardUi extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 64,
-      width: 64,
+      height: 88,
+      // width: 64,
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12),
-          color: Colors.grey.shade200,
+          color: Colors.grey.shade100,
+          border: Border.all(color: Colors.grey.shade800),
         ),
         padding: EdgeInsets.all(8),
-        child: Column(
+        child: Stack(
           children: [
-            SizedBox(
-              width: 16,
-              height: 16,
-              child: Icon(_buildIcon()),
+            Positioned(
+                left: _checkLeftLength(), top: -5, child: Text('$value')),
+            Positioned(
+              // left: 1,
+              top: 15,
+              child: SizedBox(
+                width: 16,
+                height: 16,
+                child: Icon(
+                  _buildIcon(),
+                  color: _getIconColor(),
+                ),
+              ),
             ),
-            SizedBox(
-              height: 8,
-            ),
-            Text('$value')
           ],
         ),
       ),
     );
   }
 
+  double _checkLeftLength() {
+    double val = double.tryParse(value) ?? 0.0;
+    if (val >= 10) {
+      return 0;
+    }
+    return 5;
+  }
+
   _buildIcon() {
     switch (suit) {
       case 'diamond':
-        return CupertinoIcons.suit_diamond;
+        return CupertinoIcons.suit_diamond_fill;
       case 'clover':
-        return CupertinoIcons.suit_club;
+        return CupertinoIcons.suit_club_fill;
       case 'spade':
-        return CupertinoIcons.suit_spade;
+        return CupertinoIcons.suit_spade_fill;
       case 'heart':
-        return CupertinoIcons.suit_heart;
+        return CupertinoIcons.suit_heart_fill;
+    }
+  }
+
+  _getIconColor() {
+    switch (suit) {
+      case 'diamond':
+      case 'heart':
+        return Colors.red.shade600;
+      case 'spade':
+      case 'clover':
+        return Colors.black;
     }
   }
 }

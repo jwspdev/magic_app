@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:magic_app/src/presentation/bloc/magic_algorithm_bloc.dart';
 import 'package:magic_app/src/presentation/widgets/custom_button.dart';
+import 'package:magic_app/src/presentation/widgets/playing_card_ui.dart';
 import 'package:magic_app/src/presentation/widgets/poker_table.dart';
 
 class PokerPage extends StatelessWidget {
@@ -24,7 +25,7 @@ class PokerPage extends StatelessWidget {
       if (state is CardRevealedState) {
         return Center(
           child: Column(children: [
-            SizedBox(
+            const SizedBox(
               height: 80,
             ),
             Center(
@@ -34,8 +35,14 @@ class PokerPage extends StatelessWidget {
                     context.read<MagicAlgorithmBloc>().add(ShuffleCardsEvent());
                   }),
             ),
-            Text(
-                'STATE: $state Your Card is: ${state.selectedCard.type} ${state.selectedCard.value}')
+            const Text('YOUR CARD IS CHARAN'),
+            Container(
+              width: 100,
+              height: 150,
+              child: PlayingCardUi(
+                  value: state.selectedCard.value,
+                  suit: state.selectedCard.type),
+            )
           ]),
         );
       }

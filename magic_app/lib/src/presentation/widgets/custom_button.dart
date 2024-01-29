@@ -10,10 +10,15 @@ class CustomButton extends StatelessWidget {
     return ElevatedButton(
       onPressed: onPressed,
       style: ButtonStyle(
+          shape: MaterialStateProperty.all(
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(8))),
           backgroundColor: MaterialStateProperty.all(Colors.grey.shade300),
           textStyle: MaterialStateProperty.all(const TextStyle(fontSize: 16)),
           animationDuration: const Duration(seconds: 2)),
-      child: Text(text),
+      child: Text(
+        text,
+        style: TextStyle(color: Colors.black, fontWeight: FontWeight.w500),
+      ),
     );
   }
 }
